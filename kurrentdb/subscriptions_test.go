@@ -140,7 +140,7 @@ func streamSubscriptionDeliversAllEventsInStreamAndListensForNewEvents(db *kurre
 
 		// Write a new event
 		opts2 := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(5_999),
+			StreamState: kurrentdb.Revision(5_999),
 		}
 		writeResult, err := db.AppendToStream(context.Background(), streamID, opts2, testEvent)
 		require.NoError(t, err)

@@ -64,7 +64,7 @@ func appendToStreamSingleEventNoStream(db *kurrentdb.Client) TestCall {
 		defer cancel()
 
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 
 		_, err := db.AppendToStream(context, streamID.String(), opts, testEvent)
@@ -103,7 +103,7 @@ func appendWithInvalidStreamRevision(db *kurrentdb.Client) TestCall {
 		defer cancel()
 
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.StreamExists{},
+			StreamState: kurrentdb.StreamExists{},
 		}
 
 		_, err := db.AppendToStream(context, streamID.String(), opts, createTestEvent())
@@ -139,7 +139,7 @@ func appendToSystemStreamWithIncorrectCredentials(container *Container) TestCall
 		defer cancel()
 
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Any{},
+			StreamState: kurrentdb.Any{},
 		}
 
 		_, err = db.AppendToStream(context, streamID.String(), opts, createTestEvent())
@@ -156,7 +156,7 @@ func metadataOperation(db *kurrentdb.Client) TestCall {
 		defer cancel()
 
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Any{},
+			StreamState: kurrentdb.Any{},
 		}
 
 		_, err := db.AppendToStream(context, streamID.String(), opts, createTestEvent())

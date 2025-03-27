@@ -6,8 +6,8 @@ import (
 
 // AppendToStreamOptions options of the append stream request.
 type AppendToStreamOptions struct {
-	// Asks the server to check that the stream receiving the event is at the given expected version.
-	ExpectedRevision ExpectedRevision
+	// Asks the server to check that the stream receiving the event is at the expected state.
+	StreamState StreamState
 	// Asks for authenticated request.
 	Authenticated *Credentials
 	// A length of time to use for gRPC deadlines.
@@ -33,7 +33,7 @@ func (o *AppendToStreamOptions) requiresLeader() bool {
 }
 
 func (o *AppendToStreamOptions) setDefaults() {
-	if o.ExpectedRevision == nil {
-		o.ExpectedRevision = Any{}
+	if o.StreamState == nil {
+		o.StreamState = Any{}
 	}
 }

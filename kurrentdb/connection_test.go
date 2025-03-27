@@ -27,7 +27,7 @@ func closeConnection(container *Container) TestCall {
 		context, cancel := context.WithTimeout(context.Background(), time.Duration(5)*time.Second)
 		defer cancel()
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		_, err := db.AppendToStream(context, streamID.String(), opts, testEvent)
 
@@ -36,7 +36,7 @@ func closeConnection(container *Container) TestCall {
 		}
 
 		db.Close()
-		opts.ExpectedRevision = kurrentdb.Any{}
+		opts.StreamState = kurrentdb.Any{}
 		_, err = db.AppendToStream(context, streamID.String(), opts, testEvent)
 
 		esdbErr, ok := kurrentdb.FromError(err)

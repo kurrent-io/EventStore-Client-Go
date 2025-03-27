@@ -68,7 +68,7 @@ func (client *Client) AppendToStream(
 		return nil, fmt.Errorf("could not construct append operation. Reason: %w", err)
 	}
 
-	header := toAppendHeader(streamID, opts.ExpectedRevision)
+	header := toAppendHeader(streamID, opts.StreamState)
 
 	if err := appendOperation.Send(header); err != nil {
 		err = client.grpcClient.handleError(handle, trailers, err)
@@ -248,7 +248,7 @@ func (client *Client) DeleteStream(
 	callOptions := []grpc.CallOption{grpc.Header(&headers), grpc.Trailer(&trailers)}
 	callOptions, ctx, cancel := configureGrpcCall(parent, client.config, &opts, callOptions, client.grpcClient.perRPCCredentials)
 	defer cancel()
-	deleteRequest := toDeleteRequest(streamID, opts.ExpectedRevision)
+	deleteRequest := toDeleteRequest(streamID, opts.StreamState)
 	deleteResponse, err := streamsClient.Delete(ctx, deleteRequest, callOptions...)
 	if err != nil {
 		err = client.grpcClient.handleError(handle, trailers, err)
@@ -278,7 +278,7 @@ func (client *Client) TombstoneStream(
 	callOptions := []grpc.CallOption{grpc.Header(&headers), grpc.Trailer(&trailers)}
 	callOptions, ctx, cancel := configureGrpcCall(parent, client.config, &opts, callOptions, client.grpcClient.perRPCCredentials)
 	defer cancel()
-	tombstoneRequest := toTombstoneRequest(streamID, opts.ExpectedRevision)
+	tombstoneRequest := toTombstoneRequest(streamID, opts.StreamState)
 	tombstoneResponse, err := streamsClient.Tombstone(ctx, tombstoneRequest, callOptions...)
 
 	if err != nil {

@@ -29,7 +29,7 @@ const systemMetadataKeysContentType = "content-type"
 const systemMetadataKeysCreated = "created"
 
 // toAppendHeader ...
-func toAppendHeader(streamID string, streamRevision ExpectedRevision) *api.AppendReq {
+func toAppendHeader(streamID string, streamRevision StreamState) *api.AppendReq {
 	appendReq := &api.AppendReq{
 		Content: &api.AppendReq_Options_{
 			Options: &api.AppendReq_Options{},
@@ -206,7 +206,7 @@ func toFilterOptions(options *SubscriptionFilterOptions) (*api.ReadReq_Options_F
 	return &filterOptions, nil
 }
 
-func toDeleteRequest(streamID string, streamRevision ExpectedRevision) *api.DeleteReq {
+func toDeleteRequest(streamID string, streamRevision StreamState) *api.DeleteReq {
 	deleteReq := &api.DeleteReq{
 		Options: &api.DeleteReq_Options{
 			StreamIdentifier: &shared.StreamIdentifier{
@@ -237,7 +237,7 @@ func toDeleteRequest(streamID string, streamRevision ExpectedRevision) *api.Dele
 	return deleteReq
 }
 
-func toTombstoneRequest(streamID string, streamRevision ExpectedRevision) *api.TombstoneReq {
+func toTombstoneRequest(streamID string, streamRevision StreamState) *api.TombstoneReq {
 	tombstoneReq := &api.TombstoneReq{
 		Options: &api.TombstoneReq_Options{
 			StreamIdentifier: &shared.StreamIdentifier{

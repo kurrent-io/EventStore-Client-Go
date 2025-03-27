@@ -79,7 +79,7 @@ func persistentSubscription_ToExistingStream_StartFromBeginning_AndEventsInIt(cl
 		streamID := NAME_GENERATOR.Generate()
 		// append events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, Events);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events...)
@@ -131,7 +131,7 @@ func persistentSubscription_ToNonExistingStream_StartFromBeginning_AppendEventsA
 		require.NoError(t, err)
 		// append events to StreamsClient.AppendToStreamAsync(Stream, stream_revision.StreamRevisionNoStream, Events);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events...)
 		require.NoError(t, err)
@@ -160,7 +160,7 @@ func persistentSubscription_ToExistingStream_StartFromEnd_EventsInItAndAppendEve
 		streamID := NAME_GENERATOR.Generate()
 		// append events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, Events);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events[:10]...)
 		require.NoError(t, err)
@@ -177,7 +177,7 @@ func persistentSubscription_ToExistingStream_StartFromEnd_EventsInItAndAppendEve
 		require.NoError(t, err)
 
 		// append 1 event to StreamsClient.AppendToStreamAsync(Stream, new StreamRevision(9), event[10])
-		opts.ExpectedRevision = kurrentdb.Revision(9)
+		opts.StreamState = kurrentdb.Revision(9)
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events[10:]...)
 		require.NoError(t, err)
 
@@ -205,7 +205,7 @@ func persistentSubscription_ToExistingStream_StartFromEnd_EventsInIt(clientInsta
 		streamID := NAME_GENERATOR.Generate()
 		// append events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, Events);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events[:10]...)
@@ -274,7 +274,7 @@ func persistentSubscription_ToNonExistingStream_StartFromTwo_AppendEventsAfterwa
 		require.NoError(t, err)
 		// append 3 event to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, events)
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events...)
 		require.NoError(t, err)
@@ -302,7 +302,7 @@ func persistentSubscription_ToExistingStream_StartFrom10_EventsInItAppendEventsA
 
 		// append 10 events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, events[:10]);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		streamID := NAME_GENERATOR.Generate()
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events[:10]...)
@@ -322,7 +322,7 @@ func persistentSubscription_ToExistingStream_StartFrom10_EventsInItAppendEventsA
 
 		// append 1 event to StreamsClient.AppendToStreamAsync(Stream, StreamRevision(9), events[10:)
 		opts = kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(9),
+			StreamState: kurrentdb.Revision(9),
 		}
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events[10:]...)
 		require.NoError(t, err)
@@ -351,7 +351,7 @@ func persistentSubscription_ToExistingStream_StartFrom4_EventsInIt(clientInstanc
 
 		// append 10 events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, events[:10]);
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		streamID := NAME_GENERATOR.Generate()
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events[:10]...)
@@ -372,7 +372,7 @@ func persistentSubscription_ToExistingStream_StartFrom4_EventsInIt(clientInstanc
 
 		// append 1 event to StreamsClient.AppendToStreamAsync(Stream, StreamRevision(9), events)
 		opts = kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(9),
+			StreamState: kurrentdb.Revision(9),
 		}
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events[10:]...)
 		require.NoError(t, err)
@@ -402,7 +402,7 @@ func persistentSubscription_ToExistingStream_StartFromHigherRevisionThenEventsIn
 		// append 10 events to StreamsClient.AppendToStreamAsync(Stream, StreamState.NoStream, events[:10]);
 		streamID := NAME_GENERATOR.Generate()
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 		_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events[:11]...)
 		require.NoError(t, err)
@@ -421,7 +421,7 @@ func persistentSubscription_ToExistingStream_StartFromHigherRevisionThenEventsIn
 
 		// append event to StreamsClient.AppendToStreamAsync(Stream, StreamRevision(10), events[11:])
 		opts = kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(10),
+			StreamState: kurrentdb.Revision(10),
 		}
 
 		_, err = clientInstance.AppendToStream(context.Background(), streamID, opts, events[11])

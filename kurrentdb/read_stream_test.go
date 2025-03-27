@@ -199,7 +199,7 @@ func readStreamReturnsEOFAfterCompletion(db *kurrentdb.Client) TestCall {
 		}
 
 		opts := kurrentdb.AppendToStreamOptions{
-			ExpectedRevision: kurrentdb.NoStream{},
+			StreamState: kurrentdb.NoStream{},
 		}
 
 		streamID := NAME_GENERATOR.Generate()

@@ -247,7 +247,7 @@ func pushEventsToStream(t *testing.T,
 	events []kurrentdb.EventData) {
 
 	opts := kurrentdb.AppendToStreamOptions{
-		ExpectedRevision: kurrentdb.NoStream{},
+		StreamState: kurrentdb.NoStream{},
 	}
 	_, err := clientInstance.AppendToStream(context.Background(), streamID, opts, events...)
 

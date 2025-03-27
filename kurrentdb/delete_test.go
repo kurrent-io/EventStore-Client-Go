@@ -19,7 +19,7 @@ func DeleteTests(t *testing.T, db *kurrentdb.Client) {
 func canDeleteStream(db *kurrentdb.Client) TestCall {
 	return func(t *testing.T) {
 		opts := kurrentdb.DeleteStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(0),
+			StreamState: kurrentdb.Revision(0),
 		}
 
 		streamID := NAME_GENERATOR.Generate()
@@ -43,7 +43,7 @@ func canTombstoneStream(db *kurrentdb.Client) TestCall {
 
 		_, err := db.AppendToStream(context.Background(), streamId, kurrentdb.AppendToStreamOptions{}, createTestEvent())
 		deleteResult, err := db.TombstoneStream(context.Background(), streamId, kurrentdb.TombstoneStreamOptions{
-			ExpectedRevision: kurrentdb.Revision(0),
+			StreamState: kurrentdb.Revision(0),
 		})
 
 		if err != nil {

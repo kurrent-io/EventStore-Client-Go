@@ -144,7 +144,7 @@ func testInvalidUserCertificates(t *testing.T, endpoint string) {
 
 	streamID := uuid.NewString()
 	opts := kurrentdb.AppendToStreamOptions{
-		ExpectedRevision: kurrentdb.Any{},
+		StreamState: kurrentdb.Any{},
 	}
 
 	result, err := c.AppendToStream(context.Background(), streamID, opts, testEvent)

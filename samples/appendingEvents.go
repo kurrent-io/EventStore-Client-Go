@@ -27,7 +27,7 @@ func AppendToStream(db *kurrentdb.Client) {
 	}
 
 	options := kurrentdb.AppendToStreamOptions{
-		ExpectedRevision: kurrentdb.NoStream{},
+		StreamState: kurrentdb.NoStream{},
 	}
 
 	result, err := db.AppendToStream(context.Background(), "some-stream", options, kurrentdb.EventData{
@@ -89,7 +89,7 @@ func AppendWithNoStream(db *kurrentdb.Client) {
 	}
 
 	options := kurrentdb.AppendToStreamOptions{
-		ExpectedRevision: kurrentdb.NoStream{},
+		StreamState: kurrentdb.NoStream{},
 	}
 
 	_, err = db.AppendToStream(context.Background(), "same-event-stream", options, kurrentdb.EventData{
@@ -151,7 +151,7 @@ func AppendWithConcurrencyCheck(db *kurrentdb.Client) {
 	}
 
 	aopts := kurrentdb.AppendToStreamOptions{
-		ExpectedRevision: lastEvent.OriginalStreamRevision(),
+		StreamState: lastEvent.OriginalStreamRevision(),
 	}
 
 	_, err = db.AppendToStream(context.Background(), "concurrency-stream", aopts, kurrentdb.EventData{

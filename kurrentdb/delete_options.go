@@ -6,8 +6,8 @@ import (
 
 // DeleteStreamOptions options of the delete stream request.
 type DeleteStreamOptions struct {
-	// Asks the server to check that the stream receiving the event is at the given expected version.
-	ExpectedRevision ExpectedRevision
+	// Asks the server to check that the stream receiving the event is at the expected state.
+	StreamState StreamState
 	// Asks for authenticated request.
 	Authenticated *Credentials
 	// A length of time to use for gRPC deadlines.
@@ -33,7 +33,7 @@ func (o *DeleteStreamOptions) requiresLeader() bool {
 }
 
 func (o *DeleteStreamOptions) setDefaults() {
-	if o.ExpectedRevision == nil {
-		o.ExpectedRevision = Any{}
+	if o.StreamState == nil {
+		o.StreamState = Any{}
 	}
 }
