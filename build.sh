@@ -71,5 +71,5 @@ then
 fi
 
 echo "Compiling project..."
-go build -v ./kurrentdb ./samples
+go build -v ./esdb ./samples
 echo "done."

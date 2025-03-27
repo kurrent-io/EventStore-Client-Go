@@ -63,5 +63,5 @@ if ($generateProtos) {
 }
 
 Write-Host "Compiling project..."
-go build -v .\kurrentdb .\samples
+go build -v .\esdb .\samples
 Write-Host "done."
