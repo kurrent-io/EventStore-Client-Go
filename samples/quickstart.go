@@ -8,18 +8,18 @@ import (
 	"github.com/google/uuid"
 	"io"
 
-	"github.com/EventStore/EventStore-Client-Go/v4/esdb"
+	"github.com/EventStore/EventStore-Client-Go/v1/kurrentdb"
 )
 
 func Run() {
 	// region createClient
-	settings, err := esdb.ParseConnectionString("{connectionString}")
+	settings, err := kurrentdb.ParseConnectionString("{connectionString}")
 
 	if err != nil {
 		panic(err)
 	}
 
-	db, err := esdb.NewClient(settings)
+	db, err := kurrentdb.NewClient(settings)
 
 	// endregion createClient
 	if err != nil {
@@ -38,15 +38,15 @@ func Run() {
 		panic(err)
 	}
 
-	eventData := esdb.EventData{
-		ContentType: esdb.ContentTypeJson,
+	eventData := kurrentdb.EventData{
+		ContentType: kurrentdb.ContentTypeJson,
 		EventType:   "TestEvent",
 		Data:        data,
 	}
 	// endregion createEvent
 
 	// region appendEvents
-	_, err = db.AppendToStream(context.Background(), "some-stream", esdb.AppendToStreamOptions{}, eventData)
+	_, err = db.AppendToStream(context.Background(), "some-stream", kurrentdb.AppendToStreamOptions{}, eventData)
 	// endregion appendEvents
 
 	if err != nil {
@@ -54,7 +54,7 @@ func Run() {
 	}
 
 	// region readStream
-	stream, err := db.ReadStream(context.Background(), "some-stream", esdb.ReadStreamOptions{}, 10)
+	stream, err := db.ReadStream(context.Background(), "some-stream", kurrentdb.ReadStreamOptions{}, 10)
 
 	if err != nil {
 		panic(err)

@@ -8,18 +8,18 @@ import (
 	"log"
 	"strings"
 
-	"github.com/EventStore/EventStore-Client-Go/v4/esdb"
+	"github.com/EventStore/EventStore-Client-Go/v1/kurrentdb"
 )
 
 func CreateClient(connectionString string) {
 	// region createClient
-	conf, err := esdb.ParseConnectionString(connectionString)
+	conf, err := kurrentdb.ParseConnectionString(connectionString)
 
 	if err != nil {
 		panic(err)
 	}
 
-	client, err := esdb.NewProjectionClient(conf)
+	client, err := kurrentdb.NewProjectionClient(conf)
 
 	if err != nil {
 		panic(err)
@@ -29,9 +29,9 @@ func CreateClient(connectionString string) {
 	defer client.Close()
 }
 
-func Disable(client *esdb.ProjectionClient) {
+func Disable(client *kurrentdb.ProjectionClient) {
 	// region disable
-	err := client.Disable(context.Background(), "$by_category", esdb.GenericProjectionOptions{})
+	err := client.Disable(context.Background(), "$by_category", kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -39,12 +39,12 @@ func Disable(client *esdb.ProjectionClient) {
 	// endregion disable
 }
 
-func DisableNotFound(client *esdb.ProjectionClient) {
+func DisableNotFound(client *kurrentdb.ProjectionClient) {
 	// region disableNotFound
-	err := client.Disable(context.Background(), "projection that doesn't exist", esdb.GenericProjectionOptions{})
+	err := client.Disable(context.Background(), "projection that doesn't exist", kurrentdb.GenericProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -52,9 +52,9 @@ func DisableNotFound(client *esdb.ProjectionClient) {
 	// endregion disableNotFound
 }
 
-func Enable(client *esdb.ProjectionClient) {
+func Enable(client *kurrentdb.ProjectionClient) {
 	// region enable
-	err := client.Enable(context.Background(), "$by_category", esdb.GenericProjectionOptions{})
+	err := client.Enable(context.Background(), "$by_category", kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -62,12 +62,12 @@ func Enable(client *esdb.ProjectionClient) {
 	// endregion enable
 }
 
-func EnableNotFound(client *esdb.ProjectionClient) {
+func EnableNotFound(client *kurrentdb.ProjectionClient) {
 	// region enableNotFound
-	err := client.Enable(context.Background(), "projection that doesn't exist", esdb.GenericProjectionOptions{})
+	err := client.Enable(context.Background(), "projection that doesn't exist", kurrentdb.GenericProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -75,9 +75,9 @@ func EnableNotFound(client *esdb.ProjectionClient) {
 	// endregion enableNotFound
 }
 
-func Delete(client *esdb.ProjectionClient) {
+func Delete(client *kurrentdb.ProjectionClient) {
 	// region delete
-	err := client.Delete(context.Background(), "$by_category", esdb.DeleteProjectionOptions{})
+	err := client.Delete(context.Background(), "$by_category", kurrentdb.DeleteProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -85,12 +85,12 @@ func Delete(client *esdb.ProjectionClient) {
 	// endregion delete
 }
 
-func DeleteNotFound(client *esdb.ProjectionClient) {
+func DeleteNotFound(client *kurrentdb.ProjectionClient) {
 	// region deleteNotFound
-	err := client.Delete(context.Background(), "projection that doesn't exist", esdb.DeleteProjectionOptions{})
+	err := client.Delete(context.Background(), "projection that doesn't exist", kurrentdb.DeleteProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -98,9 +98,9 @@ func DeleteNotFound(client *esdb.ProjectionClient) {
 	// endregion deleteNotFound
 }
 
-func Abort(client *esdb.ProjectionClient) {
+func Abort(client *kurrentdb.ProjectionClient) {
 	// region abort
-	err := client.Abort(context.Background(), "$by_category", esdb.GenericProjectionOptions{})
+	err := client.Abort(context.Background(), "$by_category", kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -108,12 +108,12 @@ func Abort(client *esdb.ProjectionClient) {
 	// endregion abort
 }
 
-func AbortNotFound(client *esdb.ProjectionClient) {
+func AbortNotFound(client *kurrentdb.ProjectionClient) {
 	// region abortNotFound
-	err := client.Abort(context.Background(), "projection that doesn't exist", esdb.GenericProjectionOptions{})
+	err := client.Abort(context.Background(), "projection that doesn't exist", kurrentdb.GenericProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -121,9 +121,9 @@ func AbortNotFound(client *esdb.ProjectionClient) {
 	// endregion abortNotFound
 }
 
-func Reset(client *esdb.ProjectionClient) {
+func Reset(client *kurrentdb.ProjectionClient) {
 	// region reset
-	err := client.Reset(context.Background(), "$by_category", esdb.ResetProjectionOptions{})
+	err := client.Reset(context.Background(), "$by_category", kurrentdb.ResetProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -131,12 +131,12 @@ func Reset(client *esdb.ProjectionClient) {
 	// endregion reset
 }
 
-func ResetNotFound(client *esdb.ProjectionClient) {
+func ResetNotFound(client *kurrentdb.ProjectionClient) {
 	// region resetNotFound
-	err := client.Reset(context.Background(), "projection that doesn't exist", esdb.ResetProjectionOptions{})
+	err := client.Reset(context.Background(), "projection that doesn't exist", kurrentdb.ResetProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -144,7 +144,7 @@ func ResetNotFound(client *esdb.ProjectionClient) {
 	// endregion resetNotFound
 }
 
-func Create(client *esdb.ProjectionClient) {
+func Create(client *kurrentdb.ProjectionClient) {
 	// region createContinuous
 	script := `
 fromAll()
@@ -164,7 +164,7 @@ fromAll()
 .outputState()
 `
 	name := fmt.Sprintf("countEvent_Create_%s", uuid.New())
-	err := client.Create(context.Background(), name, script, esdb.CreateProjectionOptions{})
+	err := client.Create(context.Background(), name, script, kurrentdb.CreateProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -173,15 +173,15 @@ fromAll()
 	// endregion createContinuous
 }
 
-func CreateConflict(client *esdb.ProjectionClient) {
+func CreateConflict(client *kurrentdb.ProjectionClient) {
 	script := ""
 	name := ""
 
 	// region createContinuousConflict
-	err := client.Create(context.Background(), name, script, esdb.CreateProjectionOptions{})
+	err := client.Create(context.Background(), name, script, kurrentdb.CreateProjectionOptions{})
 
-	if esdbErr, ok := esdb.FromError(err); !ok {
-		if esdbErr.IsErrorCode(esdb.ErrorCodeUnknown) && strings.Contains(esdbErr.Err().Error(), "Conflict") {
+	if esdbErr, ok := kurrentdb.FromError(err); !ok {
+		if esdbErr.IsErrorCode(kurrentdb.ErrorCodeUnknown) && strings.Contains(esdbErr.Err().Error(), "Conflict") {
 			log.Printf("projection %s already exists", name)
 			return
 		}
@@ -189,19 +189,19 @@ func CreateConflict(client *esdb.ProjectionClient) {
 	// endregion createContinuousConflict
 }
 
-func Update(client *esdb.ProjectionClient) {
+func Update(client *kurrentdb.ProjectionClient) {
 	script := ""
 	newScript := ""
 	name := ""
 
 	// region update
-	err := client.Create(context.Background(), name, script, esdb.CreateProjectionOptions{})
+	err := client.Create(context.Background(), name, script, kurrentdb.CreateProjectionOptions{})
 
 	if err != nil {
 		panic(err)
 	}
 
-	err = client.Update(context.Background(), name, newScript, esdb.UpdateProjectionOptions{})
+	err = client.Update(context.Background(), name, newScript, kurrentdb.UpdateProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -210,14 +210,14 @@ func Update(client *esdb.ProjectionClient) {
 
 }
 
-func UpdateNotFound(client *esdb.ProjectionClient) {
+func UpdateNotFound(client *kurrentdb.ProjectionClient) {
 	script := ""
 
 	// region updateNotFound
-	err := client.Update(context.Background(), "projection that doesn't exist", script, esdb.UpdateProjectionOptions{})
+	err := client.Update(context.Background(), "projection that doesn't exist", script, kurrentdb.UpdateProjectionOptions{})
 
-	if esdbError, ok := esdb.FromError(err); !ok {
-		if esdbError.IsErrorCode(esdb.ErrorCodeResourceNotFound) {
+	if esdbError, ok := kurrentdb.FromError(err); !ok {
+		if esdbError.IsErrorCode(kurrentdb.ErrorCodeResourceNotFound) {
 			log.Printf("projection not found")
 			return
 		}
@@ -225,9 +225,9 @@ func UpdateNotFound(client *esdb.ProjectionClient) {
 	// endregion updateNotFound
 }
 
-func ListAll(client *esdb.ProjectionClient) {
+func ListAll(client *kurrentdb.ProjectionClient) {
 	// region listAll
-	projections, err := client.ListAll(context.Background(), esdb.GenericProjectionOptions{})
+	projections, err := client.ListAll(context.Background(), kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -248,9 +248,9 @@ func ListAll(client *esdb.ProjectionClient) {
 	// endregion listAll
 }
 
-func List(client *esdb.ProjectionClient) {
+func List(client *kurrentdb.ProjectionClient) {
 	// region listContinuous
-	projections, err := client.ListContinuous(context.Background(), esdb.GenericProjectionOptions{})
+	projections, err := client.ListContinuous(context.Background(), kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -271,9 +271,9 @@ func List(client *esdb.ProjectionClient) {
 	// endregion listContinuous
 }
 
-func GetStatus(client *esdb.ProjectionClient) {
+func GetStatus(client *kurrentdb.ProjectionClient) {
 	// region getStatus
-	projection, err := client.GetStatus(context.Background(), "$by_category", esdb.GenericProjectionOptions{})
+	projection, err := client.GetStatus(context.Background(), "$by_category", kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -290,14 +290,14 @@ func GetStatus(client *esdb.ProjectionClient) {
 	// endregion getStatus
 }
 
-func GetState(client *esdb.ProjectionClient) {
+func GetState(client *kurrentdb.ProjectionClient) {
 	projectionName := ""
 	// region getState
 	type Foobar struct {
 		Count int64
 	}
 
-	value, err := client.GetState(context.Background(), projectionName, esdb.GetStateProjectionOptions{})
+	value, err := client.GetState(context.Background(), projectionName, kurrentdb.GetStateProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -319,14 +319,14 @@ func GetState(client *esdb.ProjectionClient) {
 	// endregion getState
 }
 
-func GetResult(client *esdb.ProjectionClient) {
+func GetResult(client *kurrentdb.ProjectionClient) {
 	projectionName := ""
 	// region getResult
 	type Baz struct {
 		Result int64
 	}
 
-	value, err := client.GetResult(context.Background(), projectionName, esdb.GetResultProjectionOptions{})
+	value, err := client.GetResult(context.Background(), projectionName, kurrentdb.GetResultProjectionOptions{})
 
 	if err != nil {
 		panic(err)
@@ -348,9 +348,9 @@ func GetResult(client *esdb.ProjectionClient) {
 	// endregion getResult
 }
 
-func RestartSubSystem(client *esdb.ProjectionClient) {
+func RestartSubSystem(client *kurrentdb.ProjectionClient) {
 	// region restartSubsystem
-	err := client.RestartSubsystem(context.Background(), esdb.GenericProjectionOptions{})
+	err := client.RestartSubsystem(context.Background(), kurrentdb.GenericProjectionOptions{})
 
 	if err != nil {
 		panic(err)

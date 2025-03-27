@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/EventStore/EventStore-Client-Go/v4/esdb"
+	"github.com/EventStore/EventStore-Client-Go/v1/kurrentdb"
 )
 
-func ExcludeSystemEvents(db *esdb.Client) {
+func ExcludeSystemEvents(db *kurrentdb.Client) {
 	// region exclude-system
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: esdb.ExcludeSystemEventsFilter(),
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: kurrentdb.ExcludeSystemEventsFilter(),
 	})
 
 	if err != nil {
@@ -37,11 +37,11 @@ func ExcludeSystemEvents(db *esdb.Client) {
 	// endregion exclude-system
 }
 
-func EventTypePrefix(db *esdb.Client) {
+func EventTypePrefix(db *kurrentdb.Client) {
 	// region event-type-prefix
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: &esdb.SubscriptionFilter{
-			Type:     esdb.EventFilterType,
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: &kurrentdb.SubscriptionFilter{
+			Type:     kurrentdb.EventFilterType,
 			Prefixes: []string{"customer-"},
 		},
 	})
@@ -70,11 +70,11 @@ func EventTypePrefix(db *esdb.Client) {
 	// endregion event-type-prefix
 }
 
-func EventTypeRegex(db *esdb.Client) {
+func EventTypeRegex(db *kurrentdb.Client) {
 	// region event-type-regex
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: &esdb.SubscriptionFilter{
-			Type:  esdb.EventFilterType,
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: &kurrentdb.SubscriptionFilter{
+			Type:  kurrentdb.EventFilterType,
 			Regex: "^user|^company",
 		},
 	})
@@ -103,11 +103,11 @@ func EventTypeRegex(db *esdb.Client) {
 	// endregion event-type-regex
 }
 
-func StreamPrefix(db *esdb.Client) {
+func StreamPrefix(db *kurrentdb.Client) {
 	// region stream-prefix
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: &esdb.SubscriptionFilter{
-			Type:     esdb.StreamFilterType,
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: &kurrentdb.SubscriptionFilter{
+			Type:     kurrentdb.StreamFilterType,
 			Prefixes: []string{"user-"},
 		},
 	})
@@ -136,11 +136,11 @@ func StreamPrefix(db *esdb.Client) {
 	// endregion stream-prefix
 }
 
-func StreamRegex(db *esdb.Client) {
+func StreamRegex(db *kurrentdb.Client) {
 	// region stream-regex
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: &esdb.SubscriptionFilter{
-			Type:  esdb.StreamFilterType,
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: &kurrentdb.SubscriptionFilter{
+			Type:  kurrentdb.StreamFilterType,
 			Regex: "^user|^company",
 		},
 	})
@@ -169,11 +169,11 @@ func StreamRegex(db *esdb.Client) {
 	// endregion stream-regex
 }
 
-func CheckpointCallbackWithInterval(db *esdb.Client) {
+func CheckpointCallbackWithInterval(db *kurrentdb.Client) {
 	// region checkpoint-with-interval
-	sub, err := db.SubscribeToAll(context.Background(), esdb.SubscribeToAllOptions{
-		Filter: &esdb.SubscriptionFilter{
-			Type:  esdb.EventFilterType,
+	sub, err := db.SubscribeToAll(context.Background(), kurrentdb.SubscribeToAllOptions{
+		Filter: &kurrentdb.SubscriptionFilter{
+			Type:  kurrentdb.EventFilterType,
 			Regex: "/^[^\\$].*/",
 		},
 	})
