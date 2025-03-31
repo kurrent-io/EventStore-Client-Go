@@ -1,6 +1,10 @@
-# EventStoreDB Client SDK for Golang [![Actions Status](https://github.com/eventstore/EventStore-Client-Go/workflows/CI/badge.svg?branch=master)](https://github.com/eventstore/EventStore-Client-Go/actions)
+> [!WARNING]
+> **DEPRECATION NOTICE**: 
+> * This package has been deprecated due to the rebranding of EventStore to Kurrent. For more information, see the [rebranding FAQ](https://www.kurrent.io/blog/kurrent-re-brand-faq).
+> 
+> We recommend moving to [KurrentDB Client Go](https://github.com/kurrent-io/KurrentDB-Client-Go) for ongoing updates and support.
 
-> **DEPRECATED**: This package has been deprecated and is no longer maintained. Please use [KurrentDB Client Go](https://github.com/kurrent-io/KurrentDB-Client-Go) instead.
+# EventStoreDB Client SDK for Golang
 
 EventStoreDB is the event-native database, where business events are immutably stored and streamed. Designed for event-sourced, event-driven, and microservices architectures.
 
